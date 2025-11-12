@@ -1,0 +1,2 @@
+./nuke.sh
+./install.sh
