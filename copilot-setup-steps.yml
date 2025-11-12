@@ -1,0 +1,27 @@
+name: "Copilot Setup Steps"
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - .github/workflows/copilot-setup-steps.yml
+  pull_request:
+    paths:
+      - .github/workflows/copilot-setup-steps.yml
+
+jobs:
+  copilot-setup-steps:
+    runs-on: arc-runner-set-copilot-coding-agent
+
+    permissions:
+      contents: write
+
+    defaults:
+      run:
+        working-directory: .
+
+    steps:
+      - name: Bootstrap CodeQL with Pre-installed Binary
+        run: |
+          mkdir -p /home/runner/_work/REPO_NAME/.codeql-scratch
+          ln -s /opt/codeql /home/runner/_work/REPO_NAME/.codeql-scratch
