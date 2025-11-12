@@ -18,12 +18,13 @@ The setup consists of several components:
 1. **Minikube Cluster**: Local Kubernetes cluster for testing and development
 2. **Actions Runner Controller (ARC)**: Manages self-hosted GitHub Actions runners
 3. **Custom Runner Image**: Docker container with:
-   - GitHub Actions Runner base
-   - CodeQL (v2.23.2) for security scanning
-   - Node.js 22.x with YAML tools
-   - Python 3 with AI/ML libraries (PyTorch, Transformers, LangChain, OpenAI)
-   - VS Code CLI for debugging
-   - Various development tools (git, jq, yamllint, etc.)
+   - GitHub Actions Runner base (required)
+   - **CodeQL (v2.23.2)** - **REQUIRED** for GitHub Copilot Coding Agent functionality
+   - Node.js 22.x with YAML tools (required)
+   - Python 3 (required for basic functionality)
+   - AI/ML libraries (PyTorch, Transformers, LangChain, OpenAI) - **optional**, only needed for ML/AI features
+   - VS Code CLI - **optional**, for debugging
+   - Various development tools (git, jq, yamllint, etc.) - required
 
 4. **Kubernetes Resources**: Helm charts for deploying and managing runners
 
@@ -53,12 +54,6 @@ Before getting started, ensure you have:
 - [Docker](https://docs.docker.com/get-docker/) (v20.10+)
 - [Helm](https://helm.sh/docs/intro/install/) (v3.0+)
 - [kubectl](https://kubernetes.io/docs/tasks/tools/) (v1.25+)
-
-### System Requirements
-- **CPU**: Minimum 8 cores (32 cores recommended for GPU setup)
-- **Memory**: Minimum 16GB (64GB recommended for GPU setup)
-- **Disk**: Minimum 100GB free space (500GB recommended)
-- **GPU** (optional): NVIDIA GPU with CUDA 13.0 support for ML features
 
 ### GitHub Requirements
 - GitHub Personal Access Token (PAT) with the following scopes:
@@ -93,7 +88,9 @@ githubConfigSecret:
 
 #### 2. `copilot-setup-steps.yml`
 
-This is an example workflow file. To use it:
+This is an example workflow file that demonstrates a **workaround** for using the pre-installed CodeQL binary. This bootstrap step is necessary because the GitHub Copilot Coding Agent requires CodeQL to function properly, and this approach avoids downloading CodeQL on every workflow run.
+
+To use it:
 
 1. Copy it to your repository's `.github/workflows/` directory
 2. Replace `REPO_NAME` in line 26 with your actual repository name
@@ -138,24 +135,24 @@ Updates an existing runner installation with new configuration changes.
 
 The custom runner image (`copilot-agent-sample-runner`) includes:
 
-### Base Tools
+### Base Tools (Required)
 - GitHub Actions Runner (latest)
 - Node.js 22.x with npm
 - Python 3 with pip
 - Git, curl, wget, jq, tree, vim
 - yamllint
 
-### Security Tools
-- CodeQL 2.23.2 (pre-installed at `/opt/codeql`)
+### Security Tools (Required)
+- **CodeQL 2.23.2** (pre-installed at `/opt/codeql`) - **REQUIRED** for GitHub Copilot Coding Agent functionality
 
-### AI/ML Tools
-- PyTorch with CUDA 13.0 support
-- Transformers, LangChain, OpenAI
-- NumPy, Pandas, Matplotlib
-- Jupyter, DeepSpeed, Pytest
+### AI/ML Tools (Optional)
+- PyTorch with CUDA 13.0 support (optional - only needed for ML/AI features)
+- Transformers, LangChain, OpenAI (optional - for AI/ML workflows)
+- NumPy, Pandas, Matplotlib (optional - for data science workflows)
+- Jupyter, DeepSpeed, Pytest (optional - for development and testing)
 
-### Development Tools
-- VS Code CLI
+### Development Tools (Optional)
+- VS Code CLI (optional - for debugging purposes)
 - YAML parsing tools
 
 ## 🔒 Security Considerations
@@ -164,7 +161,7 @@ The custom runner image (`copilot-agent-sample-runner`) includes:
 2. **Network Security**: Consider network policies for production deployments
 3. **Resource Limits**: Set appropriate CPU/memory limits in `values.yaml`
 4. **Image Security**: Regularly update the base images and dependencies
-5. **CodeQL**: The setup includes CodeQL for security scanning of your code
+5. **CodeQL**: CodeQL is **required** for the GitHub Copilot Coding Agent to function properly and is pre-installed for security scanning
 
 ## 🐛 Troubleshooting
 
@@ -240,4 +237,4 @@ This project is provided as-is for educational and reference purposes. Please en
   - Adding network security policies
   
 - The GPU configuration in `nuke.sh` requires NVIDIA GPU support in your system and Docker
-- Resource requirements are significant - ensure your system meets the minimum specifications
+- This setup can be resource-intensive - adjust Minikube resources based on your system's capabilities
