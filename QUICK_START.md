@@ -11,8 +11,6 @@ Before you begin, make sure you have:
 - [ ] Helm installed
 - [ ] kubectl installed
 - [ ] GitHub Personal Access Token created
-- [ ] At least 4 CPU cores and 8GB RAM available (8+ cores and 16GB+ recommended)
-- [ ] 50GB free disk space (100GB+ recommended)
 
 ## 🚀 Step-by-Step Setup
 
@@ -38,14 +36,13 @@ cd copilot-agent-self-hosted-sample
 
 ### Step 3: Start Minikube
 
-Start Minikube with appropriate resources:
+Start Minikube with appropriate resources for your system:
 
 ```bash
-# For basic setup (minimum requirements)
+# Basic setup example
 minikube start --cpus=4 --memory=8g --disk-size=50g --driver=docker
 
-# For better performance (recommended)
-minikube start --cpus=8 --memory=16g --disk-size=100g --driver=docker
+# Adjust CPU, memory, and disk size based on your system's available resources
 
 # For GPU-enabled setup (optional - only if using ML/AI features with NVIDIA GPU)
 minikube start \
@@ -302,13 +299,12 @@ This will nuke and reinstall everything.
 
 ### Issue: "Minikube start" fails with resource error
 
-**Solution**: Adjust resources based on your system capabilities
+**Solution**: Adjust resources based on your system's available resources
 ```bash
-# Try with absolute minimum specs (may be slow)
+# Example with lower resources
 minikube start --cpus=2 --memory=4g --disk-size=30g --driver=docker
 
-# Recommended minimum for good performance
-minikube start --cpus=4 --memory=8g --disk-size=50g --driver=docker
+# Check your system's available resources and adjust accordingly
 ```
 
 ### Issue: Pods stuck in "Pending" state

@@ -55,12 +55,6 @@ Before getting started, ensure you have:
 - [Helm](https://helm.sh/docs/intro/install/) (v3.0+)
 - [kubectl](https://kubernetes.io/docs/tasks/tools/) (v1.25+)
 
-### System Requirements
-- **CPU**: Minimum 4 cores (8+ cores recommended for better performance)
-- **Memory**: Minimum 8GB (16GB+ recommended for better performance)
-- **Disk**: Minimum 50GB free space (100GB+ recommended)
-- **GPU** (optional): NVIDIA GPU with CUDA 13.0 support - only needed if using ML/AI features
-
 ### GitHub Requirements
 - GitHub Personal Access Token (PAT) with the following scopes:
   - `repo` (Full control of private repositories)
@@ -243,4 +237,4 @@ This project is provided as-is for educational and reference purposes. Please en
   - Adding network security policies
   
 - The GPU configuration in `nuke.sh` requires NVIDIA GPU support in your system and Docker
-- Resource requirements are significant - ensure your system meets the minimum specifications
+- This setup can be resource-intensive - adjust Minikube resources based on your system's capabilities
