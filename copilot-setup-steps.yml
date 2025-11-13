@@ -21,6 +21,9 @@ jobs:
         working-directory: .
 
     steps:
+      - name: Set PATH
+        run: echo "export PATH=\$PATH:/home/runner/.local/bin" >> $GITHUB_ENV
+
       - name: Bootstrap CodeQL with Pre-installed Binary
         run: |
           mkdir -p /home/runner/_work/REPO_NAME/.codeql-scratch

@@ -1,8 +1,6 @@
 # Dockerfile: companion-collective-runner
 FROM ghcr.io/actions/actions-runner:latest
 
-ENV PATH="$PATH:/home/runner/.local/bin"
-
 # System deps
 RUN curl -fsSL https://deb.nodesource.com/setup_22.x | sudo bash -
 RUN sudo apt update && sudo apt install -y \
