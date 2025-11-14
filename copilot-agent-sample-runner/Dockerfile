@@ -2,12 +2,12 @@
 FROM ghcr.io/actions/actions-runner:latest
 
 # System deps
-RUN curl -fsSL https://deb.nodesource.com/setup_22.x | sudo bash -
-RUN sudo apt update && sudo apt install -y \
+RUN curl -fsSL https://deb.nodesource.com/setup_22.x | sudo bash - \
+  && sudo apt update && sudo apt install -y \
     python3 python3-pip python3-venv \
     nodejs git curl wget jq tree vim \
     yamllint \
-    && sudo rm -rf /var/lib/apt/lists/*
+  && sudo rm -rf /var/lib/apt/lists/*
 
 # Node tools
 RUN sudo npm install -g yaml
@@ -20,17 +20,13 @@ COPY install-codeql-bundle.sh /tmp/install-codeql-bundle.sh
 RUN sudo chmod +x /tmp/install-codeql-bundle.sh
 RUN /tmp/install-codeql-bundle.sh
 
-# PyTorch + CUDA 13.0 (for ML agents)
-RUN pip3 install --no-cache-dir \
-    torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu130 \
-    transformers --index-url https://pypi.python.org/simple langchain openai gitpython \
-    numpy pandas matplotlib jupyter deepspeed pytest
-
-# VS Code CLI (for debugging)
-RUN curl -Lk 'https://code.visualstudio.com/sha/download?build=stable&os=cli-alpine-x64' \
-    --output vscode_cli.tar.gz
-RUN sudo tar -xf vscode_cli.tar.gz -C /usr/local/bin
-RUN rm vscode_cli.tar.gz
+# .NET 9 SDK
+RUN wget https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb \
+  && sudo dpkg -i packages-microsoft-prod.deb \
+  && rm packages-microsoft-prod.deb \
+  && sudo apt-get update \
+  && sudo apt-get install -y dotnet-sdk-9.0 \
+  && sudo rm -rf /var/lib/apt/lists/*
 
 # Label
 LABEL container="copilot-agent-sample-runner"
