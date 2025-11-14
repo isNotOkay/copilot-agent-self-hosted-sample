@@ -2,13 +2,10 @@
 minikube stop
 minikube delete
 
-# 2. Restart fresh (your beast mode)
+# 2. Restart fresh (tuned for CX43: 8 vCPU / 16 GB RAM)
 minikube start \
-  --cpus=32 \
-  --memory=64g \
-  --disk-size=500g \
+  --cpus=4 \
+  --memory=10g \
+  --disk-size=80g \
   --driver=docker \
   --container-runtime=containerd
-
-# 3. Re-enable GPU
-minikube addons enable nvidia-device-plugin
