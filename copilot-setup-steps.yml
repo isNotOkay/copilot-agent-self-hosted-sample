@@ -27,4 +27,4 @@ jobs:
       - name: Bootstrap CodeQL with Pre-installed Binary
         run: |
           mkdir -p /home/runner/_work/REPO_NAME/.codeql-scratch
-          ln -s /opt/codeql /home/runner/_work/REPO_NAME/.codeql-scratch
+          ln -s /opt/codeql/codeql /home/runner/_work/REPO_NAME/.codeql-scratch
