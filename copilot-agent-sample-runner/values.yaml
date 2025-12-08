@@ -1,6 +1,6 @@
-githubConfigUrl: "https://github.com/REPO_URL_WITHOUT_DOT_GIT"
+githubConfigUrl: "https://github.com/isNotOkay/self-hosted-github-copilot-agent-runner"
 githubConfigSecret:
-  github_token: "GITHUB_PERSONAL_TOKEN"
+  github_token: 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
 maxRunners: 10
 minRunners: 0
 namespace: "arc-runners"
